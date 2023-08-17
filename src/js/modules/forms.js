@@ -1,5 +1,5 @@
-const forms = (state) => {
-  const forms = document.querySelectorAll('forms');
+const forms = () => {
+  const forms = document.querySelectorAll('form');
   const inputs = document.querySelectorAll('input');
   const phoneInputs = document.querySelectorAll('input[name="user_phone"]');
 
@@ -19,7 +19,10 @@ const forms = (state) => {
     document.querySelector('.status').textContent = message.loading;
     let res = await fetch(url, {
       method: 'POST',
-      body: data
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
     });
 
     return await res.text();
@@ -30,7 +33,6 @@ const forms = (state) => {
       input.value = '';
     });
   };
-
   forms.forEach((form) => {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -40,14 +42,9 @@ const forms = (state) => {
       form.appendChild(statusMessage);
 
       const formData = new FormData(form);
+      const JSONData = Object.fromEntries(formData);
 
-      if (form.getAttribute('data-calc') === 'end') {
-        for (let key in state) {
-          formData.append(key, state[key]);
-        }
-      }
-
-      postData('assets/server.php', formData)
+      postData('https://simple-server-cumz.onrender.com/api/data', JSONData)
         .then((res) => {
           console.log(res);
           statusMessage.textContent = message.success;
