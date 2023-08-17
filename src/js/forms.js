@@ -1,11 +1,11 @@
 const forms = (state) => {
-  const form = document.querySelectorAll('form'),
-    inputs = document.querySelectorAll('input'),
-    phoneInputs = document.querySelectorAll('input[name="user_phone"]');
+  const forms = document.querySelectorAll('forms');
+  const inputs = document.querySelectorAll('input');
+  const phoneInputs = document.querySelectorAll('input[name="user_phone"]');
 
-  phoneInputs.forEach((item) => {
-    item.addEventListener('input', () => {
-      item.value = item.value.replace(/\D/, '');
+  phoneInputs.forEach((phoneInput) => {
+    phoneInput.addEventListener('input', () => {
+      phoneInput.value = phoneInput.value.replace(/\D/, '');
     });
   });
 
@@ -26,22 +26,22 @@ const forms = (state) => {
   };
 
   const clearInput = () => {
-    inputs.forEach((item) => {
-      item.value = '';
+    inputs.forEach((input) => {
+      input.value = '';
     });
   };
 
-  form.forEach((item) => {
-    item.addEventListener('submit', (e) => {
+  forms.forEach((form) => {
+    form.addEventListener('submit', (e) => {
       e.preventDefault();
 
       let statusMessage = document.createElement('div');
       statusMessage.classList.add('status');
-      item.appendChild(statusMessage);
+      form.appendChild(statusMessage);
 
-      const formData = new FormData(item);
+      const formData = new FormData(form);
 
-      if (item.getAttribute('data-calc') === 'end') {
+      if (form.getAttribute('data-calc') === 'end') {
         for (let key in state) {
           formData.append(key, state[key]);
         }
