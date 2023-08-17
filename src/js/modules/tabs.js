@@ -1,26 +1,26 @@
 const tabs = (
   headerSelector,
-  tabSelector,
-  contentSelector,
+  tabsSelector,
+  contentsSelector,
   activeClass,
   display = 'block'
 ) => {
-  const header = document.querySelector(headerSelector),
-    tab = document.querySelectorAll(tabSelector),
-    content = document.querySelectorAll(contentSelector);
+  const header = document.querySelector(headerSelector);
+  const tabs = document.querySelectorAll(tabsSelector);
+  const contents = document.querySelectorAll(contentsSelector);
 
-  function hideTabContent() {
-    content.forEach((item) => {
-      item.style.display = 'none';
+  const hideTabContent = () => {
+    contents.forEach((content) => {
+      content.style.display = 'none';
     });
-    tab.forEach((item) => {
-      item.classList.remove(activeClass);
+    tabs.forEach((tab) => {
+      tab.classList.remove(activeClass);
     });
-  }
-  function showTabContent(i = 0) {
-    content[i].style.display = display;
-    tab[i].classList.add(activeClass);
-  }
+  };
+  const showTabContent = (i = 0) => {
+    contents[i].style.display = display;
+    tabs[i].classList.add(activeClass);
+  };
 
   hideTabContent();
   showTabContent();
@@ -29,11 +29,11 @@ const tabs = (
     const target = e.target;
     if (
       target &&
-      (target.classList.contains(tabSelector.replace(/\./, '')) ||
-        target.parentNode.classList.contains(tabSelector.replace(/\./, '')))
+      (target.classList.contains(tabsSelector.replace(/\./, '')) ||
+        target.parentNode.classList.contains(tabsSelector.replace(/\./, '')))
     ) {
-      tab.forEach((item, i) => {
-        if (target == item || target.parentNode == item) {
+      tabs.forEach((tab, i) => {
+        if (target == tab || target.parentNode == tab) {
           hideTabContent();
           showTabContent(i);
         }
