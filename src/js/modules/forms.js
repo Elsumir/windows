@@ -1,4 +1,4 @@
-const forms = () => {
+export const forms = () => {
   const forms = document.querySelectorAll('form');
   const inputs = document.querySelectorAll('input');
   const phoneInputs = document.querySelectorAll('input[name="user_phone"]');
@@ -17,7 +17,7 @@ const forms = () => {
 
   const postData = async (url, data) => {
     document.querySelector('.status').textContent = message.loading;
-    let res = await fetch(url, {
+    const res = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -37,7 +37,7 @@ const forms = () => {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      let statusMessage = document.createElement('div');
+      const statusMessage = document.createElement('div');
       statusMessage.classList.add('status');
       form.appendChild(statusMessage);
 
@@ -46,7 +46,6 @@ const forms = () => {
 
       postData('https://simple-server-cumz.onrender.com/api/data', JSONData)
         .then((res) => {
-          console.log(res);
           statusMessage.textContent = message.success;
         })
         .catch(() => (statusMessage.textContent = message.failure))
@@ -59,5 +58,3 @@ const forms = () => {
     });
   });
 };
-
-export default forms;
