@@ -1,5 +1,4 @@
-import modals from './modules/modals';
-import tabs from './modules/tabs';
+import { modals, tabs, forms } from './modules';
 
 window.addEventListener('DOMContentLoaded', () => {
   modals();
@@ -10,4 +9,5 @@ window.addEventListener('DOMContentLoaded', () => {
     '.decoration_content > div > div',
     'after_click'
   );
+  forms();
 });
