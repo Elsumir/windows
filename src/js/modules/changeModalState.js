@@ -34,8 +34,6 @@ export const changeModalState = (state) => {
             state[prop] = element.value;
             break;
         }
-
-        console.log(state);
       });
     });
   };

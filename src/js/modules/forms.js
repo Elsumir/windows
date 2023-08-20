@@ -3,7 +3,6 @@ import checkNumInput from './checkNumInput';
 export const forms = (state) => {
   const form = document.querySelectorAll('form');
   const inputs = document.querySelectorAll('input');
-  const phoneInputs = document.querySelectorAll('input[name="user_phone"]');
 
   checkNumInput('input[name="user_phone"]');
 
@@ -44,7 +43,9 @@ export const forms = (state) => {
         }
       }
 
-      postData('assets/server.php', formData)
+      const JSONData = Object.fromEntries(formData);
+
+      postData('https://simple-server-cumz.onrender.com/api/data', JSONData)
         .then((res) => {
           statusMessage.textContent = message.success;
         })
