@@ -1,6 +1,4 @@
-import modals from './modules/modals';
-import tabs from './modules/tabs';
-import forms from './modules/forms';
+import { modals, tabs, forms } from './modules';
 
 window.addEventListener('DOMContentLoaded', () => {
   modals();
