@@ -1,7 +1,4 @@
-import modals from './modules/modals';
-import tabs from './modules/tabs';
-import forms from './modules/forms';
-import changeModalState from './modules/changeModalState';
+import { modals, tabs, forms, changeModalState } from './modules';
 
 window.addEventListener('DOMContentLoaded', () => {
   let modalState = {};

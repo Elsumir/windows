@@ -1,8 +1,9 @@
 import checkNumInput from './checkNumInput';
 
-const forms = (state) => {
-  const form = document.querySelectorAll('form'),
-    inputs = document.querySelectorAll('input');
+export const forms = (state) => {
+  const form = document.querySelectorAll('form');
+  const inputs = document.querySelectorAll('input');
+  const phoneInputs = document.querySelectorAll('input[name="user_phone"]');
 
   checkNumInput('input[name="user_phone"]');
 
@@ -14,7 +15,7 @@ const forms = (state) => {
 
   const postData = async (url, data) => {
     document.querySelector('.status').textContent = message.loading;
-    let res = await fetch(url, {
+    const res = await fetch(url, {
       method: 'POST',
       body: data
     });
@@ -32,7 +33,7 @@ const forms = (state) => {
     item.addEventListener('submit', (e) => {
       e.preventDefault();
 
-      let statusMessage = document.createElement('div');
+      const statusMessage = document.createElement('div');
       statusMessage.classList.add('status');
       item.appendChild(statusMessage);
 
@@ -45,7 +46,6 @@ const forms = (state) => {
 
       postData('assets/server.php', formData)
         .then((res) => {
-          console.log(res);
           statusMessage.textContent = message.success;
         })
         .catch(() => (statusMessage.textContent = message.failure))
@@ -58,5 +58,3 @@ const forms = (state) => {
     });
   });
 };
-
-export default forms;
