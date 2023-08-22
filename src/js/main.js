@@ -8,8 +8,8 @@ import {
 } from './modules';
 
 window.addEventListener('DOMContentLoaded', () => {
-  let modalState = {};
-  let deadline = '2023-08-24';
+  const modalState = {};
+  const deadline = '2023-08-24';
 
   changeModalState(modalState);
   modals(modalState);
