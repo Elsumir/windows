@@ -13,6 +13,10 @@ export const images = () => {
 
   imgPopup.style.justifyContent = 'center';
   imgPopup.style.alignItems = 'center';
+
+  bigImg.style.width = '60%';
+  bigImg.style.height = '70%';
+
   closeModal();
 
   imgPopup.appendChild(bigImg);
