@@ -16,6 +16,9 @@ export const forms = (state) => {
     document.querySelector('.status').textContent = message.loading;
     const res = await fetch(url, {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: data
     });
 
