@@ -1,14 +1,26 @@
 export const modals = () => {
-  const bindModal = (triggersSelector, modalSelector, closeSelector) => {
+  const bindModal = ({
+    triggersSelector,
+    modalSelector,
+    closeSelector,
+    closeClickOverlay
+  }) => {
     const triggers = document.querySelectorAll(triggersSelector);
     const modal = document.querySelector(modalSelector);
     const close = document.querySelector(closeSelector);
+    const windows = document.querySelectorAll('[data-modal]');
+
+    const windowsClose = () => {
+      windows.forEach((window) => (window.style.display = 'none'));
+    };
 
     triggers.forEach((trigger) => {
       trigger.addEventListener('click', (e) => {
         if (e.target) {
           e.preventDefault();
         }
+
+        windowsClose();
 
         modal.style.display = 'block';
         document.body.style.overflow = 'hidden';
@@ -26,10 +38,14 @@ export const modals = () => {
       }
     });
 
-    close.addEventListener('click', () => closeModal());
+    close.addEventListener('click', () => {
+      windowsClose();
+      closeModal();
+    });
 
     modal.addEventListener('click', (e) => {
-      if (e.target === modal) {
+      if (e.target === modal && closeClickOverlay) {
+        windowsClose();
         closeModal();
       }
     });
@@ -42,12 +58,35 @@ export const modals = () => {
     }, time);
   };
 
-  bindModal(
-    '.popup_engineer_btn',
-    '.popup_engineer',
-    '.popup_engineer .popup_close'
-  );
-  bindModal('.phone_link', '.popup', '.popup .popup_close');
-  bindModal('.popup_calc_btn', '.popup_calc', '.popup_calc_close');
+  bindModal({
+    triggersSelector: '.popup_engineer_btn',
+    modalSelector: '.popup_engineer',
+    closeSelector: '.popup_engineer .popup_close',
+    closeClickOverlay: true
+  });
+  bindModal({
+    triggersSelector: '.phone_link',
+    modalSelector: '.popup',
+    closeSelector: '.popup .popup_close',
+    closeClickOverlay: true
+  });
+  bindModal({
+    triggersSelector: '.popup_calc_btn',
+    modalSelector: '.popup_calc',
+    closeSelector: '.popup_calc_close',
+    closeClickOverlay: true
+  });
+  bindModal({
+    triggersSelector: '.popup_calc_button',
+    modalSelector: '.popup_calc_profile',
+    closeSelector: '.popup_calc_profile_close',
+    closeClickOverlay: false
+  });
+  bindModal({
+    triggersSelector: '.popup_calc_profile_button',
+    modalSelector: '.popup_calc_end',
+    closeSelector: '.popup_calc_end_close',
+    closeClickOverlay: false
+  });
   showModalByTime('.popup', 60000);
 };

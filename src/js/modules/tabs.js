@@ -1,10 +1,10 @@
-export const tabs = (
+export const tabs = ({
   headerSelector,
   tabsSelector,
   contentsSelector,
   activeClass,
-  display = 'block'
-) => {
+  display
+}) => {
   const header = document.querySelector(headerSelector);
   const tabs = document.querySelectorAll(tabsSelector);
   const contents = document.querySelectorAll(contentsSelector);

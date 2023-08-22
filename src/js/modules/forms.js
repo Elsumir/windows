@@ -1,13 +1,10 @@
-export const forms = () => {
-  const forms = document.querySelectorAll('form');
-  const inputs = document.querySelectorAll('input');
-  const phoneInputs = document.querySelectorAll('input[name="user_phone"]');
+import checkNumInput from './checkNumInput';
 
-  phoneInputs.forEach((phoneInput) => {
-    phoneInput.addEventListener('input', () => {
-      phoneInput.value = phoneInput.value.replace(/\D/, '');
-    });
-  });
+export const forms = (state) => {
+  const form = document.querySelectorAll('form');
+  const inputs = document.querySelectorAll('input');
+
+  checkNumInput('input[name="user_phone"]');
 
   const message = {
     loading: 'Загрузка...',
@@ -22,26 +19,33 @@ export const forms = () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
+      body: data
     });
 
     return await res.text();
   };
 
   const clearInput = () => {
-    inputs.forEach((input) => {
-      input.value = '';
+    inputs.forEach((item) => {
+      item.value = '';
     });
   };
-  forms.forEach((form) => {
-    form.addEventListener('submit', (e) => {
+
+  form.forEach((item) => {
+    item.addEventListener('submit', (e) => {
       e.preventDefault();
 
       const statusMessage = document.createElement('div');
       statusMessage.classList.add('status');
-      form.appendChild(statusMessage);
+      item.appendChild(statusMessage);
 
-      const formData = new FormData(form);
+      const formData = new FormData(item);
+      if (item.getAttribute('data-calc') === 'end') {
+        for (let key in state) {
+          formData.append(key, state[key]);
+        }
+      }
+
       const JSONData = Object.fromEntries(formData);
 
       postData('https://simple-server-cumz.onrender.com/api/data', JSONData)
