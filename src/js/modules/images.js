@@ -31,7 +31,7 @@ export const images = () => {
     if (target && target.classList.contains('preview')) {
       imgPopup.style.display = 'flex';
       body.style.overflow = 'hidden';
-      const path = target.parentNode.getAttribute('href');
+      const path = target.getAttribute('src');
       bigImg.setAttribute('src', path);
     }
     if (target && target.matches('div.popup')) {
